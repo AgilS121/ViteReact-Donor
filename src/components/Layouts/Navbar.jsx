@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
   Navbar,
   Collapse,
@@ -23,9 +24,6 @@ import {
 } from "@heroicons/react/24/solid";
 import logo from "../../assets/img/logo.png"
 import CustomButton from "../Elements/Button/CostumButton";
-import { Link, NavLink } from "react-router-dom";
-import Dialog from "../Fragments/CustomDialog";
-import CustomDialog from "../Fragments/CustomDialog";
 
  
 const navListMenuItems = [
@@ -33,19 +31,19 @@ const navListMenuItems = [
     title: "Lokasi Dan Jadwal",
     description: "Find the perfect solution for your needs.",
     icon: SquaresPlusIcon,
-    href: "/lokasi",
+    link: 'lokasidanjadwal'
   },
   {
     title: "Stok Darah",
     description: "Meet and learn about our dedication",
     icon: UserGroupIcon,
-    href: "/stokdarah",
+    link: 'stokdarah'
   },
   {
     title: "Syarat-Syarat",
     description: "Find the perfect solution for your needs.",
     icon: Bars4Icon,
-    href: "/",
+    link: 'syarat'
   },
 ];
  
@@ -53,32 +51,32 @@ const NavListMenu = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
   const renderItems = navListMenuItems.map(
-    ({ icon, title, description,href }, key) => (
-      <a href={href} key={key}>
-        <MenuItem className="flex items-center gap-3 rounded-lg">
-          <div className="flex items-center justify-center rounded-lg !bg-blue-gray-50 p-2 ">
-            {""}
-            {React.createElement(icon, {
-              strokeWidth: 2,
-              className: "h-6 text-gray-900 w-6",
-            })}
-          </div>
-          <div>
-            <Typography
-              variant="h6"
-              color="blue-gray"
-              className="flex items-center text-sm font-bold"
-            >
-              {title}
-            </Typography>
-            <Typography
-              variant="paragraph"
-              className="text-xs !font-medium text-blue-gray-500"
-            >
-              {description}
-            </Typography>
-          </div>
-        </MenuItem>
+    ({ icon, title, description, link }, key) => (
+      <a href={link || '#'} key={key}>
+          <MenuItem className="flex items-center gap-3 rounded-lg">
+            <div className="flex items-center justify-center rounded-lg !bg-blue-gray-50 p-2 ">
+              {" "}
+              {React.createElement(icon, {
+                strokeWidth: 2,
+                className: "h-6 text-gray-900 w-6",
+              })}
+            </div>
+            <div>
+              <Typography
+                variant="h6"
+                color="blue-gray"
+                className="flex items-center text-sm font-bold"
+              >
+                {title}
+              </Typography>
+              <Typography
+                variant="paragraph"
+                className="text-xs !font-medium text-blue-gray-500"
+              >
+                {description}
+              </Typography>
+            </div>
+          </MenuItem>
       </a>
     ),
   );
@@ -99,7 +97,7 @@ const NavListMenu = () => {
               selected={isMenuOpen || isMobileMenuOpen}
               onClick={() => setIsMobileMenuOpen((cur) => !cur)}
             >
-              Informasi
+              <a href={'informasi'}>Informasi</a>
               <ChevronDownIcon
                 strokeWidth={2.5}
                 className={`hidden h-3 w-3 transition-transform lg:block ${
@@ -131,7 +129,6 @@ const NavListMenu = () => {
 function NavList() {
   return (
     <List className="mt-4 mb-6 p-0 lg:mt-0 lg:mb-0 lg:flex-row lg:p-1 text-black">
-      
        <Typography
         as="a"
         href="#"
@@ -139,19 +136,19 @@ function NavList() {
         color="blue-gray"
         className="font-medium px-10 justify-start"
       >
-         <Link to="/formdonor" className='w-full'>
          <CustomButton variant="outlined" title="Ayo Donor" size="sm"/>
-         </Link>
       </Typography>
          
       <Typography
         as="a"
-        href="/"
+        href="#"
         variant="small"
         color="blue-gray"
         className="font-medium"
       >
-        <ListItem className="flex items-center gap-2 py-2 pr-4">Beranda</ListItem>
+        <Link to={'/'}>
+          <ListItem className="flex items-center gap-2 py-2 pr-4">Beranda</ListItem>
+        </Link>
       </Typography>
       <NavListMenu />
       <Typography
@@ -161,9 +158,11 @@ function NavList() {
         color="blue-gray"
         className="font-medium"
       >
-        <ListItem className="flex items-center gap-2 py-2 pr-4 ">
-          Tentang Kami
-        </ListItem>
+        <Link to={'about'}>
+          <ListItem className="flex items-center gap-2 py-2 pr-4 ">
+            Tentang Kami
+          </ListItem>
+        </Link>
       </Typography>
     </List>
   );
@@ -184,7 +183,7 @@ const NavbarDefault = () => {
       <div className="flex items-center justify-between text-black">
         <Typography
           as="a"
-          href="/"
+          href="#"
           variant="h6"
           className="mr-4 cursor-pointer py-1.5 lg:ml-2"
         >
@@ -195,7 +194,9 @@ const NavbarDefault = () => {
           <NavList />
         </div>
         <div className="hidden gap-2 lg:flex">
-        <CustomDialog/>
+          <a href={'login'}>
+            <CustomButton variant="filled" title="Log in" size="sm"/>
+          </a>
         </div>
          <IconButton
           variant="text"
@@ -213,7 +214,9 @@ const NavbarDefault = () => {
       <Collapse open={openNav}>
         <NavList />
         <div className="flex w-full flex-nowrap items-center gap-2 lg:hidden">
-          <CustomButton variant="filled" title="Log in" size="sm"/>
+          <a href={'login'}>
+            <CustomButton variant="filled" title="Log in" size="sm"/>
+          </a>
         </div>
       </Collapse>
     </Navbar>

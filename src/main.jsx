@@ -10,6 +10,9 @@ import { ThemeProvider } from '@material-tailwind/react'
 import DonorPage from './pages/donor.jsx'
 import ForumPage from './pages/forum.jsx'
 import ProfilPage from './pages/profil.jsx'
+import PageLocation from './pages/lokasi'
+import StokPage from './pages/stokdarah'
+import DetailCerita from './pages/detailcerita'
 
 const router = createBrowserRouter([
   {
@@ -26,6 +29,10 @@ const router = createBrowserRouter([
     element: <RegisterPage />
   },
   {
+    path: "stokdarah",
+    element: <StokPage />
+  },
+  {
     path: "formdonor",
     element: <DonorPage />
   },
@@ -34,9 +41,18 @@ const router = createBrowserRouter([
     element: <ForumPage />
   },
   {
+    path : "forumberbagi/:id",
+    element : <DetailCerita />
+  },
+  {
     path: "profil",
     element: <ProfilPage />
   },
+  {
+    path: "lokasidanjadwal",
+    element: <PageLocation />
+  },
+
 ])
 
 

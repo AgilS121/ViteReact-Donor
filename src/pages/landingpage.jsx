@@ -119,7 +119,7 @@ const LandingPage = () => {
                     </div>
                     <div className="flex justify-center text-center align-middle ">
                         <div className='w-full max-w-sm'>
-                            <Link to="/login" >
+                            <Link to="/forumberbagi" >
                                 <CustomButton variant="filled" title="Baca Cerita Lainnya" type="lg" />
                             </Link>
                         </div>

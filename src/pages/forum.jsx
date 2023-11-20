@@ -1,101 +1,68 @@
 import React from 'react'
-import CardForum from '../components/Fragments/CardForum'
 import Layout from '../components/Layouts/Layout'
-import user from '../assets/img/user.png'
-import forum1 from '../assets/img/forum1.png'
-import CustomPagination from '../components/Fragments/CustomPagination'
-const Forums = [{
-  id:1,
-  image: forum1,
-  category: 'Donor Darah',
-  images: user,
-  title: 'Cerita Para Pendonor Darah Perdana',
-  desc:'Sikap peduli terhadap sesama diterapkan dalam bentuk nyata di kalangan pegawai Badan Narkotika Nasional...',
-  tanggal: '13 Okt 2023',
-},{
-  id:2,
-  image: forum1,
-  category: 'Donor Darah',
-  images: user,
-  title: 'Cerita Para Pendonor Darah Perdana',
-  desc:'Sikap peduli terhadap sesama diterapkan dalam bentuk nyata di kalangan pegawai Badan Narkotika Nasional...',
-  tanggal: '13 Okt 2023',
-},{
-  id:3,
-  image: forum1,
-  category: 'Donor Darah',
-  images: user,
-  title: 'Cerita Para Pendonor Darah Perdana',
-  desc:'Sikap peduli terhadap sesama diterapkan dalam bentuk nyata di kalangan pegawai Badan Narkotika Nasional...',
-  tanggal: '13 Okt 2023',
-},{
-  id:4,
-  image: forum1,
-  category: 'Donor Darah',
-  images: user,
-  title: 'Cerita Para Pendonor Darah Perdana',
-  desc:'Sikap peduli terhadap sesama diterapkan dalam bentuk nyata di kalangan pegawai Badan Narkotika Nasional...',
-  tanggal: '13 Okt 2023',
-}
-,{
-  id:5,
-  image: forum1,
-  category: 'Donor Darah',
-  images: user,
-  title: 'Cerita Para Pendonor Darah Perdana',
-  desc:'Sikap peduli terhadap sesama diterapkan dalam bentuk nyata di kalangan pegawai Badan Narkotika Nasional...',
-  tanggal: '13 Okt 2023',
-}
-,{
-  id:6,
-  image: forum1,
-  category: 'Donor Darah',
-  images: user,
-  title: 'Cerita Para Pendonor Darah Perdana',
-  desc:'Sikap peduli terhadap sesama diterapkan dalam bentuk nyata di kalangan pegawai Badan Narkotika Nasional...',
-  tanggal: '13 Okt 2023',
-}
-,{
-  id:7,
-  image: forum1,
-  category: 'Donor Darah',
-  images: user,
-  title: 'Cerita Para Pendonor Darah Perdana',
-  desc:'Sikap peduli terhadap sesama diterapkan dalam bentuk nyata di kalangan pegawai Badan Narkotika Nasional...',
-  tanggal: '13 Okt 2023',
-}
-]
+import FloatingButton from '../components/Elements/Button/Floating'
+import { useState } from 'react'
+import storiesData from './StoriesData'
+import StoriesCard from '../components/Elements/Card/StoriesCard'
+import AlertPopup from './PopupForm'
+
 const ForumPage = () => {
+  const itemsPerPage = 6;
+  const [currentPage, setCurrentPage] = useState(1);
+  const [isPopupVisible, setPopupVisible] = useState(false);
+
+  const totalItems = storiesData.length;
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const visibleStories = storiesData.slice(startIndex, endIndex);
+
+  const handlePageChange = (newPage) => {
+    console.log('Current Page:', currentPage);
+    setCurrentPage(newPage);
+    console.log('New Page:', newPage);
+  };
+
+  const handleFloatingButtonClick = () => {
+    setPopupVisible(true); 
+  };
+
+  const handleClosePopup = () => {
+    setPopupVisible(false); 
+  };
+
   return (
     <>
       <Layout>
-      <div className="grid grid-cols-12 gap-5">
-          <div className="col-span-12 flex justify-center mt-20">
-            <h1 className="text-center font-bold text-3xl max-w-[500px]">
-              Cerita terbaru
-            </h1>
-          </div>
-          <div className="col-span-12 flex justify-center">
-            <p className="text-center font-medium text-xl max-w-[500px]">
-              Baca pengalaman cerita para relawan
-            </p>
-          </div>
-            {Forums.map((forums) => (
-              <div key={forums.id} className="col-span-12 md:col-span-4 ">
-                <div className="flex gap-10 justify-center">
-              <CardForum>
-                <CardForum.Header image={forums.image} alt="forum1" />
-                <CardForum.Body images={forums.images} category={forums.category} title={forums.title} desc={forums.desc} />
-                <CardForum.Footer tanggal={forums.tanggal}/>
-              </CardForum>
-              </div>
-              </div>
-            ))}
-            
-            </ div>
-            <div className='flex justify-center text-center m-10'>
-            <CustomPagination/>
-            </div>
+      <div className="flex flex-col justify-center p-4 mt-4 items-center mx-auto px-8">
+      <p className="font-bold text-2xl">Cerita Baru</p>
+      <p className="font-semibold text-md">Baca pengalaman cerita para relawan</p>
+
+
+    </div>
+    
+    <div className="flex flex-col justify-center p-4 mt-4 items-center mx-auto px-8">
+
+        <div className="flex flex-wrap gap-8">
+          {visibleStories.map((story) => (
+            <StoriesCard key={story.id} story={story} title={story.title} kategori={story.kategori} />
+          ))}
+        </div>
+        <div className="flex mt-4">
+          {Array.from({ length: totalPages }, (_, index) => (
+            <button
+              key={index}
+              className={`mx-1 px-2 py-1 rounded ${currentPage === index + 1 ? 'bg-red-500 text-white' : 'bg-gray-300 text-gray-700'}`}
+              onClick={() => handlePageChange(index + 1)}
+            >
+              {index + 1}
+            </button>
+          ))}
+        </div>
+        <FloatingButton onClick={handleFloatingButtonClick} />
+        <AlertPopup isVisible={isPopupVisible} onClose={handleClosePopup} />
+      </div>
       </Layout>
     </>
   )
