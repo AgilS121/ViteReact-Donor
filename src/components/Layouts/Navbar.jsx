@@ -23,6 +23,9 @@ import {
 } from "@heroicons/react/24/solid";
 import logo from "../../assets/img/logo.png"
 import CustomButton from "../Elements/Button/CostumButton";
+import { Link, NavLink } from "react-router-dom";
+import Dialog from "../Fragments/CustomDialog";
+import CustomDialog from "../Fragments/CustomDialog";
 
  
 const navListMenuItems = [
@@ -30,16 +33,19 @@ const navListMenuItems = [
     title: "Lokasi Dan Jadwal",
     description: "Find the perfect solution for your needs.",
     icon: SquaresPlusIcon,
+    href: "/lokasi",
   },
   {
     title: "Stok Darah",
     description: "Meet and learn about our dedication",
     icon: UserGroupIcon,
+    href: "/stokdarah",
   },
   {
     title: "Syarat-Syarat",
     description: "Find the perfect solution for your needs.",
     icon: Bars4Icon,
+    href: "/",
   },
 ];
  
@@ -47,11 +53,11 @@ const NavListMenu = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
   const renderItems = navListMenuItems.map(
-    ({ icon, title, description }, key) => (
-      <a href="#" key={key}>
+    ({ icon, title, description,href }, key) => (
+      <a href={href} key={key}>
         <MenuItem className="flex items-center gap-3 rounded-lg">
           <div className="flex items-center justify-center rounded-lg !bg-blue-gray-50 p-2 ">
-            {" "}
+            {""}
             {React.createElement(icon, {
               strokeWidth: 2,
               className: "h-6 text-gray-900 w-6",
@@ -125,6 +131,7 @@ const NavListMenu = () => {
 function NavList() {
   return (
     <List className="mt-4 mb-6 p-0 lg:mt-0 lg:mb-0 lg:flex-row lg:p-1 text-black">
+      
        <Typography
         as="a"
         href="#"
@@ -132,12 +139,14 @@ function NavList() {
         color="blue-gray"
         className="font-medium px-10 justify-start"
       >
+         <Link to="/formdonor" className='w-full'>
          <CustomButton variant="outlined" title="Ayo Donor" size="sm"/>
+         </Link>
       </Typography>
          
       <Typography
         as="a"
-        href="#"
+        href="/"
         variant="small"
         color="blue-gray"
         className="font-medium"
@@ -175,7 +184,7 @@ const NavbarDefault = () => {
       <div className="flex items-center justify-between text-black">
         <Typography
           as="a"
-          href="#"
+          href="/"
           variant="h6"
           className="mr-4 cursor-pointer py-1.5 lg:ml-2"
         >
@@ -186,7 +195,7 @@ const NavbarDefault = () => {
           <NavList />
         </div>
         <div className="hidden gap-2 lg:flex">
-          <CustomButton variant="filled" title="Log in" size="sm"/>
+        <CustomDialog/>
         </div>
          <IconButton
           variant="text"

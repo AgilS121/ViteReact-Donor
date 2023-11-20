@@ -35,6 +35,8 @@ const storyList = [{
 ]
 
 
+
+
 const LandingPage = () => {
     return (
         <>
@@ -95,8 +97,7 @@ const LandingPage = () => {
                         <div className="flex gap-4">
                             <div className="flex flex-col justify-end gap-3 max-w-[200px]">
                                 <img src={donor} width={165} height={93} alt="cara-1" />
-                                <h3 className="font-bold text-xl">Mendapatkan Pemeriksaan kesehatan gratis.
-                                </h3>
+                                <h3 className="font-bold text-xl">Mendapatkan Pemeriksaan kesehatan gratis.</h3>
                             </div>
                         </div>
                     </div>
@@ -107,16 +108,14 @@ const LandingPage = () => {
                         <div className="col-span-12">
                             <h1 className="text-center font-bold text-3xl">Cerita Baru</h1>
                         </div>
-
                         {storyList.map((story) => (
-                            <div key={story.id}  className="col-span-4 flex justify-center gap-6 ">
+                            <div key={story.id} className="col-span-4 flex justify-center gap-6 ">
                                 <CardStory>
                                     <CardStory.Header image={story.image} alt="gambar1" />
                                     <CardStory.Body title={story.title} gambar={garis} desc={story.desc} />
                                 </CardStory>
                             </div>
                         ))}
-
                     </div>
                     <div className="flex justify-center text-center align-middle ">
                         <div className='w-full max-w-sm'>

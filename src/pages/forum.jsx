@@ -3,6 +3,7 @@ import CardForum from '../components/Fragments/CardForum'
 import Layout from '../components/Layouts/Layout'
 import user from '../assets/img/user.png'
 import forum1 from '../assets/img/forum1.png'
+import CustomPagination from '../components/Fragments/CustomPagination'
 const Forums = [{
   id:1,
   image: forum1,
@@ -90,7 +91,11 @@ const ForumPage = () => {
               </div>
               </div>
             ))}
+            
             </ div>
+            <div className='flex justify-center text-center m-10'>
+            <CustomPagination/>
+            </div>
       </Layout>
     </>
   )
